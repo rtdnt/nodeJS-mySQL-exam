@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Accounts</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+        <img src="logo.png" alt="Company logo">
+    </header>
+    <div class="accounts-container">
+      <h1>Accounts</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Balance</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="accounts-table"></tbody>
+      </table>
+
+      <button id="add-account-button">Add Account</button>
+
+      <div id="add-account-form" style="display: none;">
+        <h2>Add Account</h2>
+        <form>
+          <label for="group">Group:</label>
+          <select id="group" name="group"></select>
+          <br>
+          <label for="balance">Balance:</label>
+          <input type="text" id="balance" name="balance">
+          <br>
+          <input type="submit" value="Add">
+          <input type="button" value="Cancel" id="cancel-add-account">
+        </form>
+      </div>
+
+    </div>
+  </body>
+</html>
