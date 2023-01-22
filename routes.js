@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const User = require('./models/users').User;
 const Group = require('./models/groups');
+const Account = require('./models/accounts');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -198,6 +199,29 @@ router.get('/groups/:id', auth, async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+// get accounts
+router.get('/getAccounts', auth, async (req, res) => {
+    try {
+        const account = await Account.findAll();
+        res.json({ account });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
+// create a new accounts
+        router.post('/addAccounts', auth, async (req, res) => {
+            try {
+                const { user, groupId } = req.body;
+                const newAccount = { group_id: groupId, user_id: user };
+                const createdAccount = await Account.create(newAccount);
+                res.json({ createdAccount });
+            } catch (error) {
+                res.status(500).json({ error: error.message });
+            }
+        });
 
 
         

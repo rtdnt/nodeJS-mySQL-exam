@@ -66,13 +66,12 @@ body {
   table {
     width: 100%;
     border-collapse: collapse;
-    margin: 8px;
   }
   
   th, td {
     border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
+    padding: 8px;
+    text-align: left;
   }
   
   th {
