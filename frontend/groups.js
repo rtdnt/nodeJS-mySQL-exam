@@ -60,21 +60,21 @@ function updateTable(group) {
      // Create cells for the row
      const nameCell = document.createElement('td');
      nameCell.textContent = x.name;
-     const actionsCell = document.createElement('td');
+     const actionsCell = document.createElement('td')
 
-     // Create edit and delete buttons for the actions cell
-     const editButton = document.createElement('button');
-     editButton.textContent = 'Edit';
-     const deleteButton = document.createElement('button');
-     deleteButton.textContent = 'Delete';
+     // Create edit and delete buttons for the actions cell 
+    //  const editButton = document.createElement('button');
+    //  editButton.textContent = 'Edit';
+    //  const deleteButton = document.createElement('button');
+    //  deleteButton.textContent = 'Delete';
 
      // Add the buttons to the actions cell
-     actionsCell.appendChild(editButton);
-     actionsCell.appendChild(deleteButton);
+    //  actionsCell.appendChild(editButton);
+    //  actionsCell.appendChild(deleteButton);
 
      // Add the cells to the row
      row.appendChild(nameCell);
-     row.appendChild(actionsCell);
+    // row.appendChild(actionsCell);
 
      // Add the row to the table
      groupsTable.appendChild(row);
