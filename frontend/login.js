@@ -1,30 +1,32 @@
-const loginForm = document.getElementById('loginForm');
+document.getElementById('login-form').addEventListener('submit', login);
 
-loginForm.addEventListener('submit', (event) => {
-    event.preventDefault(); // prevent the form from submitting
-
+function login(e) {
+    e.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-
+    const loginUser = {email, password}
     // send a request to the server to check if the email and password match
-    fetch('/login', {
+    fetch('/loginUser', {
         method: 'POST',
-        body: JSON.stringify({ email, password }),
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify(loginUser),
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert(data.error);
-        } else {
-            // redirect the user to the dashboard
+    .then(response => {
+        // handle the response from the server
+        if(response.status === 201){
+            response.json().then(({token}) => window.localStorage.setItem('token', token))
             window.location.href = '/groups';
+            console.log("login successful")
         }
     })
     .catch(error => {
-        console.error(error);
-        alert('An error occurred, please try again later.');
+         if(error.response.status === 409){
+            alert("Email already in use, please use a different one.");
+        }
+        else{
+            console.log(error);
+        }
     });
-});
+};

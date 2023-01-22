@@ -16,11 +16,12 @@ function register(e) {
         },
         body: JSON.stringify(newUser)
     })
-    .then(response => {
+        .then(response => {
         // handle the response from the server
         if(response.status === 201){
             // If registration was successful, redirect the user to the groups page
-            window.location.assign = ('/groups');
+            response.json().then(({token}) => window.localStorage.setItem('token', token))
+            window.location.href = '/groups';
             console.log("registration successful")
         }
     })

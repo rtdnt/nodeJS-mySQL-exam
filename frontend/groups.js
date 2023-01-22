@@ -7,8 +7,10 @@
  createGroupForm.addEventListener('submit', (event) => {
      event.preventDefault();
      createGroup(groupNameInput.value);
+     location.reload();
  });
 
+document.addEventListener("DOMContentLoaded", listGroup());
  // Function to create a new group
  async function createGroup(groupName) {
      try {
@@ -16,30 +18,48 @@
          const response = await fetch('/groups', {
              method: 'POST',
              body: JSON.stringify({ group_name: groupName }),
-             headers: { 'Content-Type': 'application/json' }
+             headers: {
+            'Content-Type': 'application/json',
+            "auth-token": window.localStorage.getItem('token') }
          });
 
          // Parse the response as JSON
          const newGroup = await response.json();
 
          // Add the new group to the table
-         addGroupToTable(newGroup);
-
+         updateTable(newGroup);
          // Clear the input field
          groupNameInput.value = '';
      } catch (error) {
          console.error(error);
      }
- }
+}
+ 
+async function listGroup() {
+    try {
+        const response = await fetch('/getAllGroups', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                "auth-token": window.localStorage.getItem('token')
+            }
+        });
+        const getGroupList = await response.json();
+        updateTable(getGroupList);
+    } catch (error) {
+    console.error(error);
+}
+}
 
  // Function to add a group to the table
- function addGroupToTable(group) {
-     // Create a new table row
-     const row = document.createElement('tr');
-
+function updateTable(group) {
+    
+    group.groups.map(x => {
+    const row = document.createElement('tr');
+        
      // Create cells for the row
      const nameCell = document.createElement('td');
-     nameCell.textContent = group.group_name;
+     nameCell.textContent = x.name;
      const actionsCell = document.createElement('td');
 
      // Create edit and delete buttons for the actions cell
@@ -58,4 +78,5 @@
 
      // Add the row to the table
      groupsTable.appendChild(row);
+    })
  }

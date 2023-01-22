@@ -26,6 +26,7 @@ router.post('/register', async (req, res) => {
         console.log ("ivykde 26 eilute");
         // create a new user object
         const newUser = { full_name: fullName, email, password: hashedPassword };
+        console.log(newUser)
         console.log ("ivykde 28 eilute");
         // insert the user into the database
         const createdUser = await User.create(newUser, { fields: ['full_name', 'email', 'password'] });
@@ -34,14 +35,14 @@ router.post('/register', async (req, res) => {
         const token = jwt.sign({ id: createdUser.id }, process.env.SECRET_KEY);
         console.log ("ivykde 34 eilute");
         // return the token in the response
-        res.json({ token });
+        return res.status(201).json({ token });
     } catch (error) {
         res.status(500).json({ error: error.message });
         console.log (req.body);
     }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/loginUser', async (req, res) => {
     const { email, password } = req.body;
     // check if email and password are provided
     if (!email || !password) {
@@ -53,6 +54,7 @@ router.post('/login', async (req, res) => {
         return res.status(404).json({ error: 'User not found' });
 }
     // compare provided password with hashed password in the database
+    const user = await User.findOne({ where: { email } });
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
         return res.status(401).json({ error: 'Invalid password' });
@@ -61,7 +63,7 @@ router.post('/login', async (req, res) => {
     if (user) {
         const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY);
         // return the token in the response
-        res.json({ token });
+        return res.status(201).json({ token });
     }
 });
 
@@ -126,8 +128,8 @@ router.delete('/users/:id', async (req, res) => {
         // create a new group
         router.post('/groups', auth, async (req, res) => {
             try {
-                const { name, description } = req.body;
-                const newGroup = { name, description };
+                const { group_name } = req.body;
+                const newGroup = { name: group_name };
                 const createdGroup = await Group.create(newGroup);
                 res.json({ createdGroup });
             } catch (error) {
@@ -172,7 +174,7 @@ router.delete('/groups/:id', auth, async (req, res) => {
 
 //retrieve all groups
 
-router.get('/groups', auth, async (req, res) => {
+router.get('/getAllGroups', auth, async (req, res) => {
     try {
         const groups = await Group.findAll();
         res.json({ groups });
