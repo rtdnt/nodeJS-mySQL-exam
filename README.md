@@ -1,7 +1,6 @@
 # nodeJS-mySQL-exam
+
 NodeJS - MySQL Exam for CodeAcademy
-
-
 
 Instructions
 NodeJS Exam
@@ -19,7 +18,7 @@ accounts (id, group_id, user_id) <- ši lentelė skirta žinoti kokioms grupėms
 P.S. duomenų tipus ir constraints pasirinkite savo nuožiūra.
 Back-end turės žemiau išvardintus maršrutus (angl. routes):
 POST /register - gauname vartotojo duomenis, juos validuojame ir išsaugome į duomenų bazę.
-POST  /login - gauname vartotojo duomenis, validuojame ir patikriname ar toks vartotojas egzistuoja pagal email ir password. Jei egzistuoja, sugeneruojame token su user_id ir jį grąžiname. Jei ne, grąžiname klaidą su žinute, kas buvo negerai.
+POST /login - gauname vartotojo duomenis, validuojame ir patikriname ar toks vartotojas egzistuoja pagal email ir password. Jei egzistuoja, sugeneruojame token su user_id ir jį grąžiname. Jei ne, grąžiname klaidą su žinute, kas buvo negerai.
 POST /groups - tik prisijungusiems vartotojams sukuriama nauja grupė groups lentelėje.
 GET /groups - grąžina groups lentelės informaciją (bus naudinga groups.html select laukui generuoti)
 POST /accounts - endpoint'as skirtas priskirti vartotoją kažkuriai grupei. Vartotojas paduoda group_id ir savo token, iš kurio galite pasiimti user_id. Sukuriamas įrašas lentelėje accounts.
@@ -36,7 +35,6 @@ bills.html - mato sąskaitas specifinės grupės ir gali pridėti naujas.
 P.S. padalinimas į puslapius nebūtinai turi būti toks, kaip nurodyta. Svarbiausia, kad būtų išpildyti funkciniai reikalavimai. Jei norite, galite viską atvaizduoti ir dinamiškai viename puslapyje (ar HTML faile).
 
 Užduoties įkėlimo instrukcijos
-
 
 Instrukcijas, kaip valdyti GitHub repozitorijas rasite - https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories arba step-by-step žemiau.
 
