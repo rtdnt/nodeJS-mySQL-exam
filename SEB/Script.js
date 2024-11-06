@@ -96,13 +96,13 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         messageDiv.appendChild(messageContent);
         messagesContainer.appendChild(messageDiv);
-        smoothScrollToBottom();
-    }
 
-    function smoothScrollToBottom() {
-        messagesContainer.scrollTo({
-            top: messagesContainer.scrollHeight,
-            behavior: 'smooth'
-        });
+        // Smooth scroll to bottom
+        setTimeout(() => {
+            messagesContainer.scrollTo({
+                top: messagesContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 100);
     }
 });
