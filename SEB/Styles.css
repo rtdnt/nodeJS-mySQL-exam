@@ -1,97 +1,171 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const sendBtn = document.getElementById('sendBtn');
-    const inputField = document.getElementById('chatbot-input-field');
-    const messagesContainer = document.querySelector('.chatbot-messages');
-    const minimizeBtn = document.querySelector('.chatbot-minimize');
-    const closeBtn = document.querySelector('.chatbot-close');
-    const menuBtn = document.querySelector('.chatbot-menu');
-    const menuContent = document.querySelector('.chatbot-menu-content');
-    const feedbackLink = document.getElementById('feedback-link');
-    const chatWindow = document.querySelector('.chatbot-window');
-    const chatbotName = 'Virtual Advisor';
-    const customerName = 'You';
-    const chatbotIcon = 'images/chatbot-icon.png';
-    const agentIcon = 'images/agent-icon.png';
+/* General styles inspired by SEB.lt */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f6f6f6;
+}
 
-    // Initial chatbot greeting
-    setTimeout(() => {
-        displayMessage(chatbotName, 'Hello! How can I assist you today?', 'chatbot-message', chatbotIcon);
-    }, 500);
+/* Styles for the chatbot window */
+.chatbot-window {
+    max-width: 400px;
+    border: 1px solid #dedede;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+    margin: 20px auto;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
 
-    sendBtn.addEventListener('click', sendMessage);
-    inputField.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
+/* Styles for the header */
+.chatbot-header {
+    background-color: #0092e1;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
 
-    minimizeBtn.addEventListener('click', function () {
-        chatWindow.classList.toggle('minimized');
-        const expanded = !chatWindow.classList.contains('minimized');
-        chatWindow.setAttribute('aria-expanded', expanded);
+/* Styles for the chatbot name */
+.chatbot-name {
+    font-size: 1.2em;
+}
 
-        if (!expanded) {
-            menuContent.classList.remove('show');
-            menuBtn.setAttribute('aria-expanded', 'false');
-        }
-    });
+/* Styles for the menu, minimize and close buttons */
+.chatbot-menu, .chatbot-minimize, .chatbot-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+}
 
-    closeBtn.addEventListener('click', function () {
-        chatWindow.style.display = 'none';
-    });
+/* Styles for the menu content */
+.chatbot-menu-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #0092e1;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    z-index: 1;
+}
 
-    menuBtn.addEventListener('click', function () {
-        const expanded = menuBtn.getAttribute('aria-expanded') === 'true' || false;
-        menuBtn.setAttribute('aria-expanded', !expanded);
-        menuContent.classList.toggle('show');
-    });
+.chatbot-menu-content a {
+    color: #fff;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
 
-    feedbackLink.addEventListener('click', function (e) {
-        e.preventDefault();
-        alert('Feedback form will be here.');
-    });
+.chatbot-menu-content a:hover {
+    background-color: #007ac7;
+}
 
-    function sendMessage() {
-        const messageText = inputField.value.trim();
-        if (messageText.toLowerCase() === 'talk to human') {
-            displayMessage('Agent', 'You are now connected with a human agent.', 'agent-message', agentIcon);
-            return;
-        }
-        
-        if (messageText === '') return;
+/* Show menu when .show class is added */
+.show {
+    display: block !important;
+}
 
-        // Display customer message
-        displayMessage(customerName, messageText, 'customer-message', null);
+/* Styles for the body */
+.chatbot-body {
+    background-color: #fff;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
 
-        // Clear input field
-        inputField.value = '';
+/* Styles for the messages area */
+.chatbot-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-        // Simulate chatbot response
-        setTimeout(function () {
-            displayMessage(chatbotName, 'This is a placeholder response from the chatbot.', 'chatbot-message', chatbotIcon);
-        }, 1000);
-    }
+/* Styles for individual messages */
+.message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: flex-start;
+}
 
-    function displayMessage(sender, text, messageClass, iconSrc) {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', messageClass);
-        messageDiv.setAttribute('role', 'article');
+.customer-message {
+    background-color: #d1e7dd;
+    align-self: flex-start;
+}
 
-        if (iconSrc) {
-            const iconImg = document.createElement('img');
-            iconImg.src = iconSrc;
-            iconImg.alt = `${sender} icon`;
-            iconImg.classList.add('icon');
-            messageDiv.appendChild(iconImg);
-        }
+.chatbot-message {
+    background-color: #f8d7da;
+    align-self: flex-end;
+}
 
-        const messageContent = document.createElement('div');
-        messageContent.innerHTML = `
-            <span class="${messageClass.includes('customer') ? 'customer-name' : 'chatbot-name'}">${sender}:</span>
-            <p class="message-text">${text}</p>
-        `;
-        messageDiv.appendChild(messageContent);
-        messagesContainer.appendChild(messageDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-});
+/* Styles for message icons */
+.message .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Styles for the input area */
+.chatbot-input {
+    display: flex;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-top: 1px solid #dedede;
+}
+
+/* Styles for the input field */
+#chatbot-input-field {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+/* Styles for the send button */
+.chatbot-send {
+    background-color: #0092e1;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Minimized state */
+.chatbot-window.minimized .chatbot-body,
+.chatbot-window.minimized .chatbot-input {
+    display: none;
+}
+
+.chatbot-window.minimized .chatbot-menu-content {
+    display: none;
+}
+
+/* Visually hidden class for screen readers */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.message .customer-name, .message .chatbot-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
