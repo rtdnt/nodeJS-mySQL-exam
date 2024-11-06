@@ -97,12 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
         messageDiv.appendChild(messageContent);
         messagesContainer.appendChild(messageDiv);
 
-        // Smooth scroll to bottom
-        setTimeout(() => {
-            messagesContainer.scrollTo({
-                top: messagesContainer.scrollHeight,
-                behavior: 'smooth'
-            });
-        }, 100);
+        // Scroll to bottom
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 });
