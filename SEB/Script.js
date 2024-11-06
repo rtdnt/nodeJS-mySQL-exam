@@ -96,6 +96,28 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         messageDiv.appendChild(messageContent);
         messagesContainer.appendChild(messageDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        smoothScrollToBottom(messagesContainer);
+    }
+
+    function smoothScrollToBottom(container) {
+        const start = container.scrollTop;
+        const end = container.scrollHeight;
+        const duration = 500; // duration of the scroll in milliseconds
+
+        let startTime = null;
+
+        function animateScroll(time) {
+            if (!startTime) startTime = time;
+            const progress = time - startTime;
+            const percent = Math.min(progress / duration, 1);
+
+            container.scrollTop = start + (end - start) * percent;
+
+            if (progress < duration) {
+                requestAnimationFrame(animateScroll);
+            }
+        }
+
+        requestAnimationFrame(animateScroll);
     }
 });
