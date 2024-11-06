@@ -53,15 +53,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function sendMessage() {
         const messageText = inputField.value.trim();
-        if (messageText.toLowerCase() === 'talk to human') {
-            displayMessage('Agent', 'You are now connected with a human agent.', 'agent-message', agentIcon);
-            return;
-        }
-        
         if (messageText === '') return;
 
         // Display customer message
         displayMessage(customerName, messageText, 'customer-message', null);
+
+        // Handle "talk to human" request
+        if (messageText.toLowerCase() === 'talk to human') {
+            displayMessage('System', 'Connecting you to a human agent...', 'system-message', null);
+            setTimeout(() => {
+                displayMessage('Agent', 'You are now connected with a human agent.', 'agent-message', agentIcon);
+            }, 2000); // Simulate a delay for connecting to a human agent
+            return;
+        }
 
         // Clear input field
         inputField.value = '';
