@@ -30,13 +30,6 @@ body {
     position: relative;
 }
 
-/* Styles for the chatbot icon */
-.chatbot-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-}
-
 /* Styles for the chatbot name */
 .chatbot-name {
     font-size: 1.2em;
@@ -55,8 +48,8 @@ body {
 .chatbot-menu-content {
     display: none;
     position: absolute;
-    top: 40px;
-    right: 10px;
+    top: 100%;
+    right: 0;
     background-color: #0092e1;
     border: 1px solid #fff;
     border-radius: 4px;
@@ -101,6 +94,8 @@ body {
     margin: 5px 0;
     border-radius: 4px;
     background-color: #f1f1f1;
+    display: flex;
+    align-items: flex-start;
 }
 
 .customer-message {
@@ -111,6 +106,14 @@ body {
 .chatbot-message {
     background-color: #f8d7da;
     align-self: flex-end;
+}
+
+/* Styles for message icons */
+.message .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 
 /* Styles for the input area */
@@ -146,6 +149,10 @@ body {
     display: none;
 }
 
+.chatbot-window.minimized .chatbot-menu-content {
+    display: none;
+}
+
 /* Visually hidden class for screen readers */
 .visually-hidden {
     position: absolute;
@@ -161,13 +168,4 @@ body {
 .message .customer-name, .message .chatbot-name {
     font-weight: bold;
     margin-bottom: 4px;
-}
-
-/* Styles for escalated chat */
-.escalated-message {
-    background-color: #ffe58f;
-    border-left: 5px solid #faad14;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 4px;
 }

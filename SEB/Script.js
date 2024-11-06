@@ -10,9 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const chatWindow = document.querySelector('.chatbot-window');
     const chatbotName = 'Virtual Advisor';
     const customerName = 'You';
+    const chatbotIcon = 'images/chatbot-icon.png';
+    const agentIcon = 'images/agent-icon.png';
 
     // Initial chatbot greeting
-    displayMessage(chatbotName, 'Hello! How can I assist you today?', 'chatbot-message');
+    setTimeout(() => {
+        displayMessage(chatbotName, 'Hello! How can I assist you today?', 'chatbot-message', chatbotIcon);
+    }, 500);
 
     sendBtn.addEventListener('click', sendMessage);
     inputField.addEventListener('keypress', function (e) {
@@ -23,10 +27,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     minimizeBtn.addEventListener('click', function () {
         chatWindow.classList.toggle('minimized');
-        if (chatWindow.classList.contains('minimized')) {
-            chatWindow.setAttribute('aria-expanded', 'false');
-        } else {
-            chatWindow.setAttribute('aria-expanded', 'true');
+        const expanded = !chatWindow.classList.contains('minimized');
+        chatWindow.setAttribute('aria-expanded', expanded);
+
+        if (!expanded) {
+            menuContent.classList.remove('show');
+            menuBtn.setAttribute('aria-expanded', 'false');
         }
     });
 
@@ -47,28 +53,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function sendMessage() {
         const messageText = inputField.value.trim();
+        if (messageText.toLowerCase() === 'talk to human') {
+            displayMessage('Agent', 'You are now connected with a human agent.', 'agent-message', agentIcon);
+            return;
+        }
+        
         if (messageText === '') return;
 
         // Display customer message
-        displayMessage(customerName, messageText, 'customer-message');
+        displayMessage(customerName, messageText, 'customer-message', null);
 
         // Clear input field
         inputField.value = '';
 
         // Simulate chatbot response
         setTimeout(function () {
-            displayMessage(chatbotName, 'This is a placeholder response from the chatbot.', 'chatbot-message');
+            displayMessage(chatbotName, 'This is a placeholder response from the chatbot.', 'chatbot-message', chatbotIcon);
         }, 1000);
     }
 
-    function displayMessage(sender, text, messageClass) {
+    function displayMessage(sender, text, messageClass, iconSrc) {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message', messageClass);
         messageDiv.setAttribute('role', 'article');
-        messageDiv.innerHTML = `
+
+        if (iconSrc) {
+            const iconImg = document.createElement('img');
+            iconImg.src = iconSrc;
+            iconImg.alt = `${sender} icon`;
+            iconImg.classList.add('icon');
+            messageDiv.appendChild(iconImg);
+        }
+
+        const messageContent = document.createElement('div');
+        messageContent.innerHTML = `
             <span class="${messageClass.includes('customer') ? 'customer-name' : 'chatbot-name'}">${sender}:</span>
             <p class="message-text">${text}</p>
         `;
+        messageDiv.appendChild(messageContent);
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }

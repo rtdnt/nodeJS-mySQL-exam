@@ -9,7 +9,6 @@
 <body>
     <div class="chatbot-window" role="dialog" aria-labelledby="chatbot-title" aria-describedby="chatbot-desc">
         <div class="chatbot-header">
-            <img src="chatbot-icon.png" alt="Chatbot Icon" class="chatbot-icon" aria-hidden="true">
             <span id="chatbot-title" class="chatbot-name">Virtual Advisor</span>
             <button class="chatbot-menu" aria-label="Open menu" aria-haspopup="true" aria-expanded="false">☰</button>
             <button class="chatbot-minimize" aria-label="Minimize chat window">-</button>
@@ -21,10 +20,15 @@
         </div>
         <div class="chatbot-body" id="chatbot-desc">
             <div class="chatbot-messages" role="log" aria-live="polite" aria-relevant="additions text">
-                <!-- Initial chatbot greeting -->
+                <!-- Placeholder for customer message -->
+                <div class="message customer-message" role="article">
+                    <span class="customer-name">Customer Name:</span>
+                    <p class="message-text">Customer's message will appear here.</p>
+                </div>
+                <!-- Placeholder for chatbot message -->
                 <div class="message chatbot-message" role="article">
                     <span class="chatbot-name">Virtual Advisor:</span>
-                    <p class="message-text">Hello! How can I assist you today?</p>
+                    <p class="message-text">Chatbot's message will appear here.</p>
                 </div>
             </div>
         </div>
