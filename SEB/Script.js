@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const menuBtn = document.querySelector('.chatbot-menu');
     const menuContent = document.querySelector('.chatbot-menu-content');
     const feedbackLink = document.getElementById('feedback-link');
-    const feedbackContainer = document.getElementById('feedback-container');
     const chatWindow = document.querySelector('.chatbot-window');
     const chatbotName = 'Virtual Advisor';
 
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     feedbackLink.addEventListener('click', function (e) {
         e.preventDefault();
-        feedbackContainer.hidden = false;
+        alert('Feedback form will be here.');
     });
 
     function sendMessage() {
