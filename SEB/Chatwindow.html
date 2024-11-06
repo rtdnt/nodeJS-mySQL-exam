@@ -9,30 +9,28 @@
 <body>
     <div class="chatbot-window" role="dialog" aria-labelledby="chatbot-title" aria-describedby="chatbot-desc">
         <div class="chatbot-header">
+            <img src="chatbot-icon.png" alt="Chatbot Icon" class="chatbot-icon">
             <span id="chatbot-title" class="chatbot-name">Virtual Advisor</span>
-            <button class="chatbot-menu" aria-label="Open menu">☰</button>
+            <button class="chatbot-menu" aria-label="Open menu" aria-haspopup="true" aria-expanded="false">☰</button>
             <button class="chatbot-minimize" aria-label="Minimize chat window">-</button>
             <button class="chatbot-close" aria-label="Close chat window">×</button>
-            <div class="chatbot-menu-content">
-                <a href="https://seb.lt/privacy" target="_blank">Privacy Policy</a>
-                <a href="#" id="feedback-link">Give Feedback</a>
-            </div>
+        </div>
+        <div class="chatbot-menu-content" role="menu">
+            <a href="https://seb.lt/privacy" target="_blank" role="menuitem">Privacy Policy</a>
+            <a href="#" id="feedback-link" role="menuitem">Give Feedback</a>
         </div>
         <div class="chatbot-body" id="chatbot-desc">
-            <div class="chatbot-messages" role="log" aria-live="polite" aria-relevant="additions">
-                <!-- Placeholder for customer message -->
-                <div class="message customer-message" role="article">
-                    <span class="customer-name">Customer Name:</span>
-                    <p class="message-text">Customer's message will appear here.</p>
-                </div>
-                <!-- Placeholder for chatbot message -->
+            <div class="chatbot-messages" role="log" aria-live="polite" aria-relevant="additions text">
+                <!-- Initial greeting from chatbot -->
                 <div class="message chatbot-message" role="article">
                     <span class="chatbot-name">Virtual Advisor:</span>
-                    <p class="message-text">Chatbot's message will appear here.</p>
+                    <p class="message-text">Hello! How can I assist you today?</p>
                 </div>
+                <!-- Placeholder for customer and chatbot messages -->
             </div>
         </div>
         <div class="chatbot-input">
+            <label for="chatbot-input-field" class="visually-hidden">Type your message</label>
             <input type="text" id="chatbot-input-field" aria-label="Type your message" placeholder="Type your message..." />
             <button class="chatbot-send" aria-label="Send message" id="sendBtn">Send</button>
         </div>

@@ -13,7 +13,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     background-color: #fff;
-    margin: 20px;
+    margin: 20px auto;
     font-family: 'Arial', sans-serif;
     display: flex;
     flex-direction: column;
@@ -28,6 +28,13 @@ body {
     justify-content: space-between;
     align-items: center;
     position: relative;
+}
+
+/* Styles for the chatbot icon */
+.chatbot-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
 }
 
 /* Styles for the chatbot name */
@@ -48,7 +55,8 @@ body {
 .chatbot-menu-content {
     display: none;
     position: absolute;
-    right: 50px;
+    top: 40px;
+    right: 10px;
     background-color: #0092e1;
     border: 1px solid #fff;
     border-radius: 4px;
@@ -129,4 +137,28 @@ body {
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
-    cursor:
+    cursor: pointer;
+}
+
+/* Minimized state */
+.chatbot-window.minimized .chatbot-body,
+.chatbot-window.minimized .chatbot-input {
+    display: none;
+}
+
+/* Visually hidden class for screen readers */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.message .customer-name, .message .chatbot-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}

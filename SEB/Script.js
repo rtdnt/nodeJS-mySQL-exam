@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const chatWindow = document.querySelector('.chatbot-window');
     const chatbotName = 'Virtual Advisor';
 
+    // Event listeners for buttons
     sendBtn.addEventListener('click', sendMessage);
     inputField.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
@@ -19,6 +20,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     minimizeBtn.addEventListener('click', function () {
         chatWindow.classList.toggle('minimized');
+        if (chatWindow.classList.contains('minimized')) {
+            chatWindow.setAttribute('aria-expanded', 'false');
+        } else {
+            chatWindow.setAttribute('aria-expanded', 'true');
+        }
     });
 
     closeBtn.addEventListener('click', function () {
@@ -26,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     menuBtn.addEventListener('click', function () {
+        const expanded = menuBtn.getAttribute('aria-expanded') === 'true' || false;
+        menuBtn.setAttribute('aria-expanded', !expanded);
         menuContent.classList.toggle('show');
     });
 
@@ -34,31 +42,15 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('Feedback form will be here.');
     });
 
+    // Function to send a message
     function sendMessage() {
         const messageText = inputField.value.trim();
         if (messageText === '') return;
 
-        // Customer message
+        // Add customer message
         const customerMessage = document.createElement('div');
         customerMessage.classList.add('message', 'customer-message');
         customerMessage.setAttribute('role', 'article');
         customerMessage.innerHTML = `
             <span class="customer-name">You:</span>
-            <p class="message-text">${messageText}</p>
-        `;
-        messagesContainer.appendChild(customerMessage);
-
-        // Chatbot response placeholder
-        const chatbotMessage = document.createElement('div');
-        chatbotMessage.classList.add('message', 'chatbot-message');
-        chatbotMessage.setAttribute('role', 'article');
-        chatbotMessage.innerHTML = `
-            <span class="chatbot-name">${chatbotName}:</span>
-            <p class="message-text">This is a placeholder response from the chatbot.</p>
-        `;
-        messagesContainer.appendChild(chatbotMessage);
-
-        inputField.value = '';
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-});
+            <p class="message-text
