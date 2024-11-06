@@ -9,8 +9,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const feedbackLink = document.getElementById('feedback-link');
     const chatWindow = document.querySelector('.chatbot-window');
     const chatbotName = 'Virtual Advisor';
+    const customerName = 'You';
 
-    // Event listeners for buttons
+    // Initial chatbot greeting
+    displayMessage(chatbotName, 'Hello! How can I assist you today?', 'chatbot-message');
+
     sendBtn.addEventListener('click', sendMessage);
     inputField.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
@@ -42,15 +45,31 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('Feedback form will be here.');
     });
 
-    // Function to send a message
     function sendMessage() {
         const messageText = inputField.value.trim();
         if (messageText === '') return;
 
-        // Add customer message
-        const customerMessage = document.createElement('div');
-        customerMessage.classList.add('message', 'customer-message');
-        customerMessage.setAttribute('role', 'article');
-        customerMessage.innerHTML = `
-            <span class="customer-name">You:</span>
-            <p class="message-text
+        // Display customer message
+        displayMessage(customerName, messageText, 'customer-message');
+
+        // Clear input field
+        inputField.value = '';
+
+        // Simulate chatbot response
+        setTimeout(function () {
+            displayMessage(chatbotName, 'This is a placeholder response from the chatbot.', 'chatbot-message');
+        }, 1000);
+    }
+
+    function displayMessage(sender, text, messageClass) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', messageClass);
+        messageDiv.setAttribute('role', 'article');
+        messageDiv.innerHTML = `
+            <span class="${messageClass.includes('customer') ? 'customer-name' : 'chatbot-name'}">${sender}:</span>
+            <p class="message-text">${text}</p>
+        `;
+        messagesContainer.appendChild(messageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+});
