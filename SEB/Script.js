@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const messagesContainer = document.querySelector('.chatbot-messages');
     const minimizeBtn = document.querySelector('.chatbot-minimize');
     const closeBtn = document.querySelector('.chatbot-close');
+    const menuBtn = document.querySelector('.chatbot-menu');
+    const menuContent = document.querySelector('.chatbot-menu-content');
+    const feedbackLink = document.getElementById('feedback-link');
+    const feedbackContainer = document.getElementById('feedback-container');
     const chatWindow = document.querySelector('.chatbot-window');
     const chatbotName = 'Virtual Advisor';
 
@@ -20,6 +24,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     closeBtn.addEventListener('click', function () {
         chatWindow.style.display = 'none';
+    });
+
+    menuBtn.addEventListener('click', function () {
+        menuContent.classList.toggle('show');
+    });
+
+    feedbackLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        feedbackContainer.hidden = false;
     });
 
     function sendMessage() {

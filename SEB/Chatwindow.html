@@ -10,8 +10,13 @@
     <div class="chatbot-window" role="dialog" aria-labelledby="chatbot-title" aria-describedby="chatbot-desc">
         <div class="chatbot-header">
             <span id="chatbot-title" class="chatbot-name">Virtual Advisor</span>
+            <button class="chatbot-menu" aria-label="Open menu">☰</button>
             <button class="chatbot-minimize" aria-label="Minimize chat window">-</button>
             <button class="chatbot-close" aria-label="Close chat window">×</button>
+            <div class="chatbot-menu-content">
+                <a href="https://seb.lt/privacy" target="_blank">Privacy Policy</a>
+                <a href="#" id="feedback-link">Give Feedback</a>
+            </div>
         </div>
         <div class="chatbot-body" id="chatbot-desc">
             <div class="chatbot-messages" role="log" aria-live="polite" aria-relevant="additions">
@@ -32,6 +37,12 @@
             <button class="chatbot-send" aria-label="Send message" id="sendBtn">Send</button>
         </div>
     </div>
+
+    <!-- Feedback Iframe -->
+    <div class="feedback-iframe-container" id="feedback-container" hidden>
+        <iframe src="https://example.com/feedback" title="Feedback Form"></iframe>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
