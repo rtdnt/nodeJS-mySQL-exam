@@ -1,0 +1,86 @@
+/* Styles for the chatbot window */
+.chatbot-window {
+    max-width: 400px;
+    border: 1px solid #cecece;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Styles for the header */
+.chatbot-header {
+    background-color: #0092e1;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Styles for the chatbot name */
+.chatbot-name {
+    font-size: 1.2em;
+}
+
+/* Styles for the minimize and close buttons */
+.chatbot-minimize, .chatbot-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+/* Styles for the body */
+.chatbot-body {
+    background-color: #fff;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+}
+
+/* Styles for the messages area */
+.chatbot-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Styles for individual messages */
+.message {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Styles for customer and chatbot names */
+.customer-name, .chatbot-name {
+    font-weight: bold;
+}
+
+/* Styles for the input area */
+.chatbot-input {
+    display: flex;
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+/* Styles for the input field */
+#chatbot-input-field {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+/* Styles for the send button */
+.chatbot-send {
+    background-color: #0092e1;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
