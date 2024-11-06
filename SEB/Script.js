@@ -29,11 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
         chatWindow.classList.toggle('minimized');
         const expanded = !chatWindow.classList.contains('minimized');
         chatWindow.setAttribute('aria-expanded', expanded);
-
-        if (!expanded) {
-            menuContent.classList.remove('show');
-            menuBtn.setAttribute('aria-expanded', 'false');
-        }
+        if (!expanded) scrollToBottom(); // Scroll to bottom when minimized
     });
 
     closeBtn.addEventListener('click', function () {
@@ -58,6 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // Display customer message
         displayMessage(customerName, messageText, 'customer-message', null);
 
+        // Clear input field
+        inputField.value = '';
+
         // Handle "talk to human" request
         if (messageText.toLowerCase() === 'talk to human') {
             displayMessage('System', 'Connecting you to a human agent...', 'system-message', null);
@@ -67,13 +66,14 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Clear input field
-        inputField.value = '';
+        // Show typing animation
+        showTypingIndicator();
 
         // Simulate chatbot response
         setTimeout(function () {
+            hideTypingIndicator();
             displayMessage(chatbotName, 'This is a placeholder response from the chatbot.', 'chatbot-message', chatbotIcon);
-        }, 1000);
+        }, 2000); // Typing animation duration
     }
 
     function displayMessage(sender, text, messageClass, iconSrc) {
@@ -97,7 +97,36 @@ document.addEventListener('DOMContentLoaded', function () {
         messageDiv.appendChild(messageContent);
         messagesContainer.appendChild(messageDiv);
 
-        // Scroll to bottom
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        // Scroll to bottom using scrollIntoView
+        scrollToBottom();
+    }
+
+    function scrollToBottom() {
+        const messagesContainer = document.querySelector('.chatbot-messages');
+        const lastMessage = messagesContainer.querySelector('.message:last-child');
+        if (lastMessage) {
+            lastMessage.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+    }
+
+    function showTypingIndicator() {
+        const typingIndicator = document.createElement('div');
+        typingIndicator.classList.add('message', 'typing-indicator');
+        typingIndicator.innerHTML = `
+            <span class="chatbot-name">Virtual Advisor is typing...</span>
+            <div class="typing-dots">
+                <span>.</span><span>.</span><span>.</span>
+            </div>
+        `;
+        messagesContainer.appendChild(typingIndicator);
+        scrollToBottom();
+    }
+
+    function hideTypingIndicator() {
+        const typingIndicator = document.querySelector('.typing-indicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+            scrollToBottom();
+        }
     }
 });
